@@ -5,6 +5,7 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/go/bin:/etc/goland-191.4212.44/GoLand-191.4212.44/bin:$HOME/bin:/usr/local/bin:$PATH
 
@@ -111,9 +112,11 @@ export EDITOR=vim
 #
 # Example aliases
 alias k="kubectl"
-alias dps="/usr/bin/docker-pretty-ps"
+
 
 setopt appendhistory autocd beep nomatch notify
 bindkey -v
-bindkey '^R' history-incremental-search-backward
-bindkey '^S' history-incremental-search-forward
+bindkey -M viins '^R' history-incremental-pattern-search-backward
+bindkey -M viins '^S' history-incremental-pattern-search-forward
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
