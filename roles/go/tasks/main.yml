@@ -1,0 +1,16 @@
+---
+- name: installing Go from Package Manager
+  dnf:
+    name: golang
+    state: present
+
+- name: installing Swaggo
+  shell: go get -u github.com/swaggo/swag/cmd/swag
+
+- name: downloading Dep installer
+  get_url:
+    url: https://raw.githubusercontent.com/golang/dep/master/install.sh
+    dest: /tmp/dep-install
+
+- name: executing Dep installer
+  command: sh /tmp/dep-install

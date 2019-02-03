@@ -1,0 +1,16 @@
+---
+- name: installing required packages for handling L2TP IPSec VPN
+  dnf:
+    name:
+    - xl2tpd
+    - NetworkManager-l2tp
+    - NetworkManager-strongswan
+    - NetworkManager-strongswan-gnome
+    state: present
+  register: l2tp
+
+- name: restarting NetworkManager
+  systemd:
+    name: NetworkManager
+    state: restarted
+  when: l2tp.changed

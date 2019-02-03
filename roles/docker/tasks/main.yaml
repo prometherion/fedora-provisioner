@@ -1,0 +1,57 @@
+---
+- name: make sure dnf-plugins.core installed
+  dnf:
+    name: dnf-plugins-core
+    state: present
+
+- name: install Docker CE repository
+  command: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+
+- name: make sure Docker from distro is not installed
+  yum:
+    name:
+    - docker
+    - docker-common
+    - container-selinux
+    - docker-selinux
+    - docker-engine
+    state: absent
+
+- name: install Docker
+  dnf:
+    name: docker-ce
+    state: present
+
+- name: enabling service Docker
+  systemd:
+    name: docker.service
+    state: started
+    enabled: yes
+
+- name: ensure group "docker" exists
+  group:
+    name: docker
+    state: present
+
+- name: adding current user to Docker 
+  user:
+    name: prometherion
+    groups: docker
+    append: yes
+
+- name: defining Compose URL
+  shell: echo -n https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)
+  register: compose
+
+- name: download Compose
+  get_url:
+    url: "{{ compose.stdout }}"
+    dest: /usr/local/bin/docker-compose
+
+- name: setting permissions for Compose
+  file:
+    path: /usr/local/bin/docker-compose
+    mode: "+x"
+
+- name: installing Pretty Docker PS
+  shell: sudo -H pip install docker-pretty-ps

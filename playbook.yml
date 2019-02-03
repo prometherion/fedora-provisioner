@@ -1,0 +1,12 @@
+---
+- hosts:
+  - localhost
+  roles:
+  - zsh
+  - vpn
+  - go
+  - docker
+  - minikube
+  - chrome
+  - utility
+  become: true

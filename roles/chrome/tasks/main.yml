@@ -1,0 +1,16 @@
+---
+- name: enabling third-party software repos
+  dnf:
+    name: fedora-workstation-repositories
+    state: present
+  become: true
+
+- name: enabling Chrome repository
+  command: dnf config-manager --set-enabled google-chrome
+  become: true
+
+- name: installing Chrome
+  dnf:
+    name: google-chrome-stable
+    state: present
+  become: true

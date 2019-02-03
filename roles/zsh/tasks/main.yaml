@@ -1,0 +1,29 @@
+---
+- name: installing zsh
+  dnf:
+    name:
+    - zsh
+    - powerline-fonts
+    state: present
+
+- stat:
+    path: /home/prometherion/.oh-my-zsh
+  register: omz
+
+- name: installing oh-my-zsh
+  shell: sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+  when: omz.stat.exists == false
+
+- name: configuring zsh
+  copy:
+    src: "{{ playbook_dir }}/roles/zsh/templates/{{ item }}"
+    dest: "~/{{ item }}"
+    remote_src: yes
+  with_items:
+  - .zshrc
+  - .zshrc.zni
+
+- name: changing shell
+  user:
+    name: prometherion
+    shell: /usr/bin/zsh
