@@ -1,0 +1,4 @@
+---
+ansible_python_interpreter: /usr/bin/python3
+
+# vim:ft=yaml:tw=120:

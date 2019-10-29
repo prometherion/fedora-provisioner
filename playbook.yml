@@ -2,11 +2,11 @@
 - hosts:
   - localhost
   roles:
-  - zsh
-  - vpn
-  - go
-  - docker
-  - minikube
-  - chrome
+  # - zsh
+  # - vpn
+  # - go
+  # - docker
+  # - chrome
   - utility
+  # - vscode
   become: true

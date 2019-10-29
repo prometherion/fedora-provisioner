@@ -23,6 +23,16 @@
   - .zshrc
   - .zshrc.zni
 
+- name: installing kubectl-prompt
+  git:
+    repo: https://github.com/superbrothers/zsh-kubectl-prompt
+    dest: /home/prometherion/.zsh/zsh-kubectl-prompt
+
+- name: installing zsh-autosuggestion
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: /home/prometherion/.zsh/zsh-autosuggestions
+
 - name: changing shell
   user:
     name: prometherion

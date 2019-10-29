@@ -1,13 +1,8 @@
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/prometherion/.zshrc'
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
-
-
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/go/bin:/etc/goland-191.4212.44/GoLand-191.4212.44/bin:$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/go/bin:HOME/bin:/usr/local/bin:/usr/local/kubebuilder/bin:/usr/local/apiserver-builder/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/prometherion/.oh-my-zsh"
@@ -77,7 +72,13 @@ plugins=(
   git
   history-substring-search
   kubectl
+  docker
 )
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+autoload -U colors; colors
+source /home/prometherion/.zsh/zsh-kubectl-prompt/kubectl.zsh
+RPROMPT='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
 
 source $ZSH/oh-my-zsh.sh
 
@@ -112,11 +113,17 @@ export EDITOR=vim
 #
 # Example aliases
 alias k="kubectl"
-
+alias dps="docker-pretty-ps"
 
 setopt appendhistory autocd beep nomatch notify
 bindkey -v
 bindkey -M viins '^R' history-incremental-pattern-search-backward
 bindkey -M viins '^S' history-incremental-pattern-search-forward
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# Tweaking Helm
+source <(helm completion zsh | sed -E 's/\["(.+)"\]/\[\1\]/g')
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+autoload -Uz compinit && compinit
+# End of lines added by compinstall

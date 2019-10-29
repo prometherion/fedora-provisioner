@@ -53,5 +53,3 @@
     path: /usr/local/bin/docker-compose
     mode: "+x"
 
-- name: installing Pretty Docker PS
-  shell: sudo -H pip install docker-pretty-ps

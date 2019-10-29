@@ -1,0 +1,16 @@
+---
+- name: import repository key
+  shell: |
+    rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    
+- name: adding VScode repo
+  copy:
+    src: "{{ playbook_dir }}/roles/vscode/templates/vscode.repo"
+    dest: /etc/yum.repos.d/vscode.repo
+    remote_src: yes
+
+- name: installing VScode
+  dnf:
+    name:
+    - code
+    state: present

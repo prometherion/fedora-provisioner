@@ -4,6 +4,7 @@
     name:
     - xl2tpd
     - NetworkManager-l2tp
+    - NetworkManager-l2tp-gnome
     - NetworkManager-strongswan
     - NetworkManager-strongswan-gnome
     state: present
